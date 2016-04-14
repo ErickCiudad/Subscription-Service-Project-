@@ -1,0 +1,43 @@
+body {
+background-image: url("http://cdn.wallpaper.com/main/legacy/gallery/17057364/Untitled-1.jpg");
+    background-size: 100%;
+
+}
+
+.content{
+    background-color: rgba(255, 255, 255, 0.7);
+    -webkit-animation: fadein 0.8s;
+}
+
+.error{
+    background-color: red;
+    color: white;
+}
+
+.food{
+    width: 250px;
+    height: 250px;
+}
+
+#thisDiv{
+    font-size: 200%;
+    background-image: url("https://slm-assets1.secondlife.com/assets/4560184/lightbox/-KnA-%20hammered%20Gold.jpg?1320786606");
+    width: 1000px;
+}
+
+.makeAccount{
+    background-color: rgba(255, 255, 255, 0.7);
+    text-align: center;
+    -webkit-animation: fadein 0.8s;
+
+}
+
+@-webkit-keyframes fadein {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+
+#addForm{
+    display: block;
+}
+
