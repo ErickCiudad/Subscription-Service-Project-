@@ -42,14 +42,93 @@ require_once('connect.php')
 </div>
 
 
+<?php
+//Clear error message
+$error_msg = "";
+
+//Try to log user in
+if (!isset($_COOKIE['user_id'])) {
+
+    if (@($_POST['submit'])) {
+        echo 'got here';
+
+        // Grab the user-entered log-in data
+        $user_username = trim($_POST['email']);
+        $user_password = trim($_POST['password']);
+
+
+        if (!empty($user_username) && !empty($user_password)) {
+            echo 'got here now elephant';
+
+// Look up the username and password in the database
+            $query = "SELECT id, username FROM account_list WHERE email = '$user_username' AND " .
+                "password = SHA('$user_password')";
+            echo 'got here now penguin';
+            $stmt = $dbh->prepare($query);
+            $stmt->execute(
+                array(
+                    'email' => $user_username,
+                    'password' => $user_password
+                )
+            );
+
+            $data = $stmt->fetch();
+            $count = $stmt->rowCount();
+
+            echo 'got here now monkey';
+
+
+//            if ($count == 1) {
+// The log-in is OK so set the user ID and username cookies, and redirect to the home page
+
+                $row = $data;
+                $name =$row['username'];
+                $id = $row['id'];
+
+
+                setcookie('id', $id);
+                setcookie('email', $name);
+                $home_url = 'http://' . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']) . '/index.php';
+                header('Location: ' . $home_url);
+            echo 'got here now parrot';
+
+
+//            }
+//            else {
+//                // The username/password are incorrect so set an error message
+//                $error_msg = 'Sorry, you must enter a valid username and password to log in.';
+//            }
+        } else {
+            // The username/password weren't entered so set an error message
+            $error_msg = 'Sorry, you must enter your username and password to log in. This one';
+        }
+    }
+}
+?>
+
+
+<?php
+// If the cookie is empty, show any error message and the log-in form; otherwise confirm the log-in
+if (empty($_COOKIE['id'])) {
+echo '<p class="error">' . $error_msg . '</p>';
+
+?>
+
 
 <div class="content">
-<h3>Login</h3>
-<form enctype="multipart/form-data" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
-    <label for="email">Email:</label>
-    <input type="text" id="email" name="email" value="<?php if (!empty($email)) echo $email; ?>" /><br />
-    <label for="password">Password:</label>
-    <input type="password" id="password" name="password" value="<?php if (!empty($password)) echo '<strong> PASSWORD </strong>'; ?>" /><br />
-    <input type="submit" value="Login" name="login" />
-</form>
+    <h3>Login</h3>
+    <form enctype="multipart/form-data" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+        <label for="email">Email:</label>
+        <input type="text" id="email" name="email" value="<?php if (!empty($email)) echo $email; ?>"/><br/>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password"
+               value="<?php if (!empty($password)) echo '<strong> PASSWORD </strong>'; ?>"/><br/>
+        <input type="submit" value="Login" name="submit" />
+    </form>
+    <?php
+    }
+
+    ?>
 </div>
+</body>
+</html>

@@ -43,6 +43,7 @@ require_once('connect.php')
 <div class="content">
 
     <?php
+    echo'<h1 style="color: white;"> Welcome, '. $_COOKIE['email'] . '</h1>';
 
     $query = "SELECT * FROM doughnutUsers ORDER BY date ASC";
     $stmt = $dbh->prepare($query);
