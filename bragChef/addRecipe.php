@@ -96,18 +96,36 @@ if (isset($_POST['submit'])) {
 
 <div class="content">
 
-<form enctype="multipart/form-data" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>" id="addForm">
-    <input type="hidden" name="MAX_FILE_SIZE" value="<?php echo GW_MAXFILESIZE; ?>" />
-    <label for="name">Name:</label>
-    <input type="text" id="name" name="name" value="<?php if (!empty($name)) echo $name; ?>" /><br />
-    <label for="recipe">Recipe:</label>
-    <input type="text" id="recipe" name="recipe" value="<?php if (!empty($recipe)) echo $recipe; ?>" /><br />
-    <label for="image">Image:</label>
-    <input type="file" id="image" name="image" />
+    <?php
+    if (isset($_COOKIE['email'])) {
+    ?>
 
-    <input type="submit" value="Add" name="submit" />
-</form>
-    </div>
+    <form enctype="multipart/form-data" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>" id="addForm">
+        <input type="hidden" name="MAX_FILE_SIZE" value="<?php echo GW_MAXFILESIZE; ?>"/>
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" value="<?php if (!empty($name)) echo $name; ?>"/><br/>
+        <label for="recipe">Recipe:</label>
+        <input type="text" id="recipe" name="recipe" value="<?php if (!empty($recipe)) echo $recipe; ?>"/><br/>
+        <label for="image">Image:</label>
+        <input type="file" id="image" name="image"/>
+
+        <input type="submit" value="Add" name="submit"/>
+    </form>
+
+
+<?php
+}
+?>
+
+<?php
+if (empty($_COOKIE['email'])) {
+    ?>
+
+    <p style="font-size: 200%; color:#36407F;">Not logged in, please sign up or login to participate!</p>
+
+    <?php
+}
+?>
 
 <!--<div class="makeAccount">-->
 <!--    <button style="font-size: 200%"><a href="signup.php">Subscribe</button>-->
@@ -117,6 +135,6 @@ if (isset($_POST['submit'])) {
 <!--</div>-->
 
 
-
+</div>
 </body>
 </html>

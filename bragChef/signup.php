@@ -87,7 +87,7 @@ else {
 <div class="content">
     <h3>Sign Up</h3>
     <form enctype="multipart/form-data" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
-        <label for="email">Email:</label>
+        <label for="email">Username:</label>
         <input type="text" id="email" name="email" value="<?php if (!empty($email)) echo $email; ?>" /><br />
         <label for="password">Password:</label>
         <input type="password" id="password" name="password" value="<?php if (!empty($password)) echo '<strong> PASSWORD </strong>'; ?>" /><br />

@@ -61,7 +61,7 @@ if (!isset($_COOKIE['user_id'])) {
             echo 'got here now elephant';
 
 // Look up the username and password in the database
-            $query = "SELECT id, username FROM account_list WHERE email = '$user_username' AND " .
+            $query = "SELECT id, email FROM account_list WHERE email = '$user_username' AND " .
                 "password = SHA('$user_password')";
             echo 'got here now penguin';
             $stmt = $dbh->prepare($query);
@@ -82,7 +82,7 @@ if (!isset($_COOKIE['user_id'])) {
 // The log-in is OK so set the user ID and username cookies, and redirect to the home page
 
                 $row = $data;
-                $name =$row['username'];
+                $name =$row['email'];
                 $id = $row['id'];
 
 
@@ -118,7 +118,8 @@ echo '<p class="error">' . $error_msg . '</p>';
 <div class="content">
     <h3>Login</h3>
     <form enctype="multipart/form-data" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
-        <label for="email">Email:</label>
+
+        <label for="email">Username:</label>
         <input type="text" id="email" name="email" value="<?php if (!empty($email)) echo $email; ?>"/><br/>
         <label for="password">Password:</label>
         <input type="password" id="password" name="password"
@@ -129,6 +130,19 @@ echo '<p class="error">' . $error_msg . '</p>';
     }
 
     ?>
+
+    <?php
+    if (isset($_COOKIE['email'])) {
+        echo '<a href="logout.php" <p style="color: white; font-size: 200%;">Logout</p></a>'
+    ?>
+
+    <?php
+    }
+    ?>
+
+
 </div>
+
+
 </body>
 </html>
